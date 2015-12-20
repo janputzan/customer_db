@@ -18,7 +18,11 @@ class ReportController extends BaseController {
 	public function index()
 	{
 
-		return View::make('reports.index')->with('page_title', 'Reports');
+		$orders = Order::all();
+
+		$customers = Customer::all();
+
+		return View::make('reports.index')->with('page_title', 'Reports')->with('orders', $orders)->with('customers', $customers);
 	}
 
 }

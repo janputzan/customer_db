@@ -2,24 +2,40 @@
 
 	<h2 class="form-signin-heading">Add New Order</h2>
 
-	{{ Form::label('quantity', 'Quantity', array('class' => 'sr-only')) }}
+	<div class="form-group">
 
-	{{ Form::text('quantity', Input::old('quantity'), array('class' => 'form-control', 'placeholder' => 'Quantity')) }}
+		{{ Form::label('quantity', 'Quantity', array('class' => 'sr-only')) }}
 
-	<span class="errors">{{ array_key_exists('quantity', $errors) ? $errors['quantity'] : '' }}</span>
+		{{ Form::text('quantity', Input::old('quantity'), array('class' => 'form-control', 'placeholder' => 'Quantity')) }}
 
-	{{ Form::label('amount', 'Amount', array('class' => 'sr-only')) }}
+		<span class="errors">{{ array_key_exists('quantity', $errors) ? $errors['quantity'] : '' }}</span>
 
-	{{ Form::text('amount', Input::old('amount'), array('class' => 'form-control', 'placeholder' => 'Amount')) }}
+	</div>
 
-	<span class="errors">{{ array_key_exists('amount', $errors) ? $errors['amount'] : '' }}</span>
+	<div class="form-group">
 
-	{{ Form::label('postage', 'Postage', array('class' => 'sr-only')) }}
+		{{ Form::label('amount', 'Amount', array('class' => 'sr-only')) }}
 
-	{{ Form::text('postage', Input::old('postage'), array('class' => 'form-control', 'placeholder' => 'Postage')) }}
+		{{ Form::text('amount', Input::old('amount'), array('class' => 'form-control', 'placeholder' => 'Amount')) }}
 
-	<span class="errors">{{ array_key_exists('postage', $errors) ? $errors['postage'] : '' }}</span>
+		<span class="errors">{{ array_key_exists('amount', $errors) ? $errors['amount'] : '' }}</span>
 
-	{{ Form::submit('Add New', array('class' => 'btn btn-lg btn-primary btn-block')) }}
+	</div>
+
+	<div class="form-group">
+
+		{{ Form::label('postage', 'Postage', array('class' => 'sr-only')) }}
+
+		{{ Form::text('postage', Input::old('postage'), array('class' => 'form-control', 'placeholder' => 'Postage')) }}
+
+		<span class="errors">{{ array_key_exists('postage', $errors) ? $errors['postage'] : '' }}</span>
+
+	</div>
+
+	<div class="form-group">
+
+		{{ Form::submit('Add New', array('class' => 'btn btn-lg btn-primary btn-block')) }}
+
+	</div>
 
 {{ Form::close() }}

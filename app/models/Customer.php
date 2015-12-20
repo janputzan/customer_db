@@ -15,4 +15,24 @@ class Customer extends Eloquent {
 
 		return $this->hasMany('Order');
 	}
+
+	public function get_totals() {
+
+		$totals = new stdClass;
+
+		$totals->quantity = 0;
+		$totals->amount = 0;
+		$totals->postage = 0;
+
+		foreach ($this->orders()->get() as $order) {
+
+			$totals->quantity += $order->quantity;
+
+			$totals->amount += $order->amount;
+
+			$totals->postage += $order->postage;
+		}
+
+		return $totals;
+	}
 }

@@ -1,5 +1,5 @@
 <footer class="footer">
 	<div class="container">
-		<p class="text-muted">Patience is a virtue</p>
+		<strong>Copyright &copy; 2015 Jan Putzan.</strong> All rights reserved.
 	</div>
 </footer>

@@ -17,3 +17,8 @@ form {
 	font-size: small;
 	color: red;
 }
+
+.customer_totals > p {
+
+	display: inline-block;
+}

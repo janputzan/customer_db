@@ -44,25 +44,11 @@ class CustomerController extends BaseController {
 
 		$postage = Input::get('postage');
 
-		$customer_val = $this->validate_customer(array('email' => $email));
+		$customer_val = new CustomerValidator(array('email' => $email));
 
-		$order_val = $this->validate_order(array('quantity' => $quantity, 'amount' => $amount, 'postage' => $postage));
+		$order_val = new OrderValidator(array('quantity' => $quantity, 'amount' => $amount, 'postage' => $postage));
 
-		if ($customer_val->fails()) {
-
-			$errors['email'] = $customer_val->messages()->first('email');
-		}
-
-		if ($order_val->fails()) {
-
-			$messages = $order_val->messages();
-
-			$errors['quantity'] = $messages->first('quantity');
-
-			$errors['amount'] = $messages->first('amount');
-
-			$errors['postage'] = $messages->first('postage');
-		}
+		$errors = array_merge($customer_val->getErrors(), $order_val->getErrors());
 
 		if (empty($errors)) {
 
@@ -84,7 +70,7 @@ class CustomerController extends BaseController {
 
 			$this->alert('New customer has been added.', 'success');
 
-			return Redirect::route('customer.show');
+			return Redirect::route('customer.show', array('id' => $customer->id));
 			
 		} else {
 
@@ -112,18 +98,9 @@ class CustomerController extends BaseController {
 
 		$postage = Input::get('postage');
 
-		$order_val = $this->validate_order(array('quantity' => $quantity, 'amount' => $amount, 'postage' => $postage));
+		$order_val = new OrderValidator(array('quantity' => $quantity, 'amount' => $amount, 'postage' => $postage));
 
-		if ($order_val->fails()) {
-
-			$messages = $order_val->messages();
-
-			$errors['quantity'] = $messages->first('quantity');
-
-			$errors['amount'] = $messages->first('amount');
-
-			$errors['postage'] = $messages->first('postage');
-		}
+		$errors = $order_val->getErrors();
 
 		if (empty($errors)) {
 
@@ -157,30 +134,10 @@ class CustomerController extends BaseController {
 
 			return View::make('customers.show')->with('customer', $customer)->with('page_title', 'Customer Orders');
 		}
-	}
 
-	private function validate_customer($data) {
+		$this->alert('Customer does not exist.', 'danger');
 
-		$validator =  Validator::make($data, array(
-
-				'email' => 'required|email|unique:customers'
-			)
-		);
-
-		return $validator;
-	}
-
-	private function validate_order($data) {
-
-		$validator = Validator::make($data, array(
-
-				'quantity' 	=> 'required|integer|min:1',
-				'amount' 	=> 'required|numeric|min:0',
-				'postage' 	=> 'required|numeric|min:0' 
-			)
-		);
-
-		return $validator;
+		return Redirect::route('dashboard');
 	}
 
 }

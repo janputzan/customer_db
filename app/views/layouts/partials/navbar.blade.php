@@ -13,7 +13,7 @@
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+				<li><a href="{{ route('dashboard') }}">Dashboard</a></li>
 				<li><a href="{{ route('reports.index') }}">Reports</a></li>
 			</ul>
 			<ul class="nav navbar-nav pull-right">

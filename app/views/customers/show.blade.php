@@ -4,7 +4,7 @@
 
 	<h3>{{ $customer->email }}
 
-		<small>Added on {{ $customer->created_at }} </small>
+		<small>added on {{ $customer->created_at }} </small>
 	</h3>
 
 	@include('forms.add_order')
@@ -25,17 +25,25 @@
 
 		<tbody>
 			
-			@foreach ($customer->orders()->get() as $order)
+			@foreach ($customer->orders()->orderBy('id', 'desc')->get() as $order)
 
 				<tr>
 					<td>{{ $order->id }}</td>
 					<td>{{ $order->quantity }}</td>
-					<td>{{ $order->amount }}</td>
-					<td>{{ $order->postage }}</td>
+					<td>&pound;{{ $order->amount }}</td>
+					<td>&pound;{{ $order->postage }}</td>
 					<td>{{ $order->created_at }}</td>
 				</tr>
 
 			@endforeach
+
+			<tr>
+				<th>Totals</th>
+				<th>{{ $customer->get_totals()->quantity }}</th>
+				<th>&pound;{{ number_format($customer->get_totals()->amount, 2) }}</th>
+				<th>&pound;{{ number_format($customer->get_totals()->postage, 2) }}</th>
+				<th></th>
+			</tr>
 			
 		</tbody>
 
